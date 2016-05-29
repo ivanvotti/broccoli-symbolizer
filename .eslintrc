@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb-base/legacy",
+  'rules': {
+    'comma-dangle': 0,
+    'func-names': 0,
+    'no-underscore-dangle': 0,
+    'vars-on-top': 0,
+    'no-useless-concat': 0,
+    'space-before-function-paren': [2, {
+      'anonymous': 'never',
+      'named': 'never'
+    }]
+  }
+}
