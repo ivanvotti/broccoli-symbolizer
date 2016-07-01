@@ -5,6 +5,14 @@ var stringify = require('json-stable-stringify');
 var Filter = require('broccoli-persistent-filter');
 var cheerio = require('cheerio');
 
+function getSymbolId(filePath, prefix) {
+  var symbolId = path.basename(filePath)
+    .replace(/\.[^/.]+$/, '')
+    .replace(/[\s]/g, '-');
+
+  return prefix + symbolId;
+}
+
 function SymbolFilter(inputNode, _options) {
   var options = _options || {};
 
@@ -30,7 +38,7 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
   var $svgWrapper = cheerio.load(svgContent, { xmlMode: true });
   var $svg = $svgWrapper('svg');
 
-  var symbolId = this.getSymbolId(filePath);
+  var symbolId = getSymbolId(filePath, this.options.prefix);
   var viewBox = $svg.attr('viewBox');
   var symbolContent = '<symbol id="' + symbolId + '" viewBox="' + viewBox + '"></symbol>';
 
@@ -39,14 +47,6 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
 
   $symbol.html($svg.html());
   return $symbolWrapper.html();
-};
-
-SymbolFilter.prototype.getSymbolId = function(filePath) {
-  var symbolId = path.basename(filePath);
-  symbolId = symbolId.replace(/\.[^/.]+$/, '');
-  symbolId = symbolId.replace(' ', '-');
-
-  return this.options.prefix + symbolId;
 };
 
 SymbolFilter.prototype.optionsHash = function() {
