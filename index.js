@@ -25,6 +25,7 @@ module.exports = function(inputNode, options) {
   });
 
   var symbolsNode = new SymbolFilter(inputNode, {
+    idGen: config.idGen,
     prefix: config.prefix,
     persist: config.persist
   });

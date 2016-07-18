@@ -4,13 +4,12 @@ var path = require('path');
 var stringify = require('json-stable-stringify');
 var Filter = require('broccoli-persistent-filter');
 var cheerio = require('cheerio');
+var defaults = require('lodash.defaults');
 
-function getSymbolId(filePath, prefix) {
-  var symbolId = path.basename(filePath)
+function defaultIDGen(filePath, options) {
+  return options.prefix + path.basename(filePath)
     .replace(/\.[^/.]+$/, '')
     .replace(/[\s]/g, '-');
-
-  return prefix + symbolId;
 }
 
 function SymbolFilter(inputNode, _options) {
@@ -22,7 +21,9 @@ function SymbolFilter(inputNode, _options) {
 
   Filter.call(this, inputNode, options);
 
-  this.options = options;
+  this.options = defaults(options, {
+    idGen: defaultIDGen
+  });
 }
 
 SymbolFilter.prototype = Object.create(Filter.prototype);
@@ -38,7 +39,7 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
   var $svgWrapper = cheerio.load(svgContent, { xmlMode: true });
   var $svg = $svgWrapper('svg');
 
-  var symbolId = getSymbolId(filePath, this.options.prefix);
+  var symbolId = this.options.idGen(filePath, { prefix: this.options.prefix });
   var viewBox = $svg.attr('viewBox');
   var symbolContent = '<symbol id="' + symbolId + '" viewBox="' + viewBox + '"></symbol>';
 
