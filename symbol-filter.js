@@ -6,10 +6,12 @@ var Filter = require('broccoli-persistent-filter');
 var cheerio = require('cheerio');
 var defaults = require('lodash.defaults');
 
+function trimExtension(filePath) {
+  return filePath.replace(/\.[^/.]+$/, '');
+}
+
 function defaultIDGen(filePath, options) {
-  return options.prefix + path.basename(filePath)
-    .replace(/\.[^/.]+$/, '')
-    .replace(/[\s]/g, '-');
+  return options.prefix + path.basename(filePath).replace(/[\s]/g, '-');
 }
 
 function SymbolFilter(inputNode, _options) {
@@ -39,7 +41,9 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
   var $svgWrapper = cheerio.load(svgContent, { xmlMode: true });
   var $svg = $svgWrapper('svg');
 
-  var symbolId = this.options.idGen(filePath, { prefix: this.options.prefix });
+  var symbolId = this.options.idGen(trimExtension(filePath), {
+    prefix: this.options.prefix
+  });
   var viewBox = $svg.attr('viewBox');
   var symbolContent = '<symbol id="' + symbolId + '" viewBox="' + viewBox + '"></symbol>';
 

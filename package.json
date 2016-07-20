@@ -1,6 +1,6 @@
 {
   "name": "broccoli-symbolizer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Combine SVG files into one as symbols",
   "scripts": {
     "test": "mocha test/ --timeout 8000"
