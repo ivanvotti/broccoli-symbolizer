@@ -1,6 +1,6 @@
 {
   "name": "broccoli-symbolizer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Combine SVG files into one as symbols",
   "scripts": {
     "test": "mocha test/ --timeout 8000"
@@ -26,7 +26,8 @@
     "broccoli-persistent-filter": "^1.2.0",
     "cheerio": "^0.20.0",
     "json-stable-stringify": "^1.0.1",
-    "lodash.defaults": "^4.0.1"
+    "lodash.defaults": "^4.0.1",
+    "lodash.mapvalues": "^4.4.0"
   },
   "devDependencies": {
     "broccoli": "^0.16.9",

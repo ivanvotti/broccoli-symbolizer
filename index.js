@@ -1,7 +1,7 @@
 'use strict';
 
-var Concat = require('broccoli-concat');
 var defaults = require('lodash.defaults');
+var Concat = require('broccoli-concat');
 var SymbolFilter = require('./symbol-filter');
 var makeSVGTag = require('./make-svg-tag');
 

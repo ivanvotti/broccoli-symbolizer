@@ -1,10 +1,12 @@
 'use strict';
 
 var path = require('path');
-var stringify = require('json-stable-stringify');
-var Filter = require('broccoli-persistent-filter');
-var cheerio = require('cheerio');
+var crypto = require('crypto');
 var defaults = require('lodash.defaults');
+var mapValues = require('lodash.mapvalues');
+var Filter = require('broccoli-persistent-filter');
+var stringify = require('json-stable-stringify');
+var cheerio = require('cheerio');
 
 function trimExtension(filePath) {
   return filePath.replace(/\.[^/.]+$/, '');
@@ -12,6 +14,10 @@ function trimExtension(filePath) {
 
 function defaultIDGen(filePath, options) {
   return options.prefix + path.basename(filePath).replace(/[\s]/g, '-');
+}
+
+function stringifyFunc(value) {
+  return (typeof value === 'function') ? value + '' : value;
 }
 
 function SymbolFilter(inputNode, _options) {
@@ -56,7 +62,10 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
 
 SymbolFilter.prototype.optionsHash = function() {
   if (!this._optionsHash) {
-    this._optionsHash = stringify(this.options);
+    var options = mapValues(this.options, stringifyFunc);
+    this._optionsHash = crypto.createHash('md5')
+      .update(stringify(options), 'utf8')
+      .digest('hex');
   }
 
   return this._optionsHash;
