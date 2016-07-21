@@ -8,12 +8,13 @@ var Filter = require('broccoli-persistent-filter');
 var stringify = require('json-stable-stringify');
 var cheerio = require('cheerio');
 
-function trimExtension(filePath) {
+function stripExtension(filePath) {
   return filePath.replace(/\.[^/.]+$/, '');
 }
 
 function defaultIDGen(filePath, options) {
-  return options.prefix + path.basename(filePath).replace(/[\s]/g, '-');
+  var assetID = options.stripPath ? path.basename(filePath) : filePath;
+  return options.prefix + assetID.replace(/[\s]/g, '-');
 }
 
 function stringifyFunc(value) {
@@ -47,7 +48,8 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
   var $svgWrapper = cheerio.load(svgContent, { xmlMode: true });
   var $svg = $svgWrapper('svg');
 
-  var symbolId = this.options.idGen(trimExtension(filePath), {
+  var symbolId = this.options.idGen(stripExtension(filePath), {
+    stripPath: this.options.stripPath,
     prefix: this.options.prefix
   });
   var viewBox = $svg.attr('viewBox');

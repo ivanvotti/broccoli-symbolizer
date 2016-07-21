@@ -11,9 +11,10 @@ module.exports = function(inputNode, options) {
   }
 
   var config = defaults(options || {}, {
-    allowNone: true,
+    stripPath: true,
     prefix: '',
     persist: true,
+    allowNone: true,
     svgAttrs: {
       style: 'position: absolute; width: 0; height: 0;',
       width: '0',
@@ -26,6 +27,7 @@ module.exports = function(inputNode, options) {
 
   var symbolsNode = new SymbolFilter(inputNode, {
     idGen: config.idGen,
+    stripPath: config.stripPath,
     prefix: config.prefix,
     persist: config.persist
   });
