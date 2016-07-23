@@ -63,6 +63,10 @@ SymbolFilter.prototype.optionsHash = function() {
   return this._optionsHash;
 };
 
+SymbolFilter.prototype.baseDir = function() {
+  return path.join(__dirname, '../');
+};
+
 SymbolFilter.prototype.cacheKeyProcessString = function(string, relativePath) {
   return this.optionsHash() +
     Filter.prototype.cacheKeyProcessString.call(this, string, relativePath);
