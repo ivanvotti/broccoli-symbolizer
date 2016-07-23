@@ -1,16 +1,14 @@
-'use strict';
+const _ = require('lodash');
+const Concat = require('broccoli-concat');
+const SymbolFilter = require('./symbol-filter');
+const makeSVGTag = require('./make-svg-tag');
 
-var defaults = require('lodash.defaults');
-var Concat = require('broccoli-concat');
-var SymbolFilter = require('./symbol-filter');
-var makeSVGTag = require('./make-svg-tag');
-
-module.exports = function(inputNode, options) {
-  if (!options || !options.outputFile) {
+module.exports = function(inputNode, options = {}) {
+  if (!options.outputFile) {
     throw new Error('outputFile is required');
   }
 
-  var config = defaults(options || {}, {
+  let config = _.defaults(options, {
     stripPath: true,
     prefix: '',
     persist: true,
@@ -25,7 +23,7 @@ module.exports = function(inputNode, options) {
     }
   });
 
-  var symbolsNode = new SymbolFilter(inputNode, {
+  let symbolsNode = new SymbolFilter(inputNode, {
     idGen: config.idGen,
     stripPath: config.stripPath,
     prefix: config.prefix,

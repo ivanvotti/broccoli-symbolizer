@@ -1,5 +1,4 @@
-*
-!index.js
-!symbol-filter.js
-!make-svg-tag.js
-!LICENSE
+*.log
+.*
+tmp
+test

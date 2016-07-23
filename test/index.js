@@ -1,5 +1,3 @@
-'use strict';
-
 // var Symbolizer = require('../');
 // var fixture = require('broccoli-fixture');
 // var chai = require('chai');
