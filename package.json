@@ -4,7 +4,6 @@
   "description": "Combine SVG files into one as symbols",
   "scripts": {
     "prebuild": "rimraf lib",
-    "fix": "mkdir lib && cp package.json lib",
     "build": "babel src --out-dir lib",
     "prewatch": "rimraf lib",
     "watch": "babel src --out-dir lib --watch",
