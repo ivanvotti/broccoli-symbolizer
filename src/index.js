@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const Concat = require('broccoli-concat');
 const SymbolFilter = require('./symbol-filter');
-const makeSVGTag = require('./make-svg-tag');
+const formatAttrs = require('./format-attrs');
 
 module.exports = function(inputNode, options = {}) {
   if (!options.outputFile) {
@@ -32,7 +32,7 @@ module.exports = function(inputNode, options = {}) {
 
   return new Concat(symbolsNode, {
     outputFile: config.outputFile,
-    header: makeSVGTag(config.svgAttrs),
+    header: `<svg ${formatAttrs(config.svgAttrs)}>`,
     footer: '</svg>',
     allowNone: config.allowNone,
     sourceMapConfig: { enabled: false }

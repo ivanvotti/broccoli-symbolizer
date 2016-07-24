@@ -4,6 +4,7 @@ const _ = require('lodash');
 const Filter = require('broccoli-persistent-filter');
 const stringify = require('json-stable-stringify');
 const cheerio = require('cheerio');
+const formatAttrs = require('./format-attrs');
 
 function stripExtension(filePath) {
   return filePath.replace(/\.[^/.]+$/, '');
@@ -40,8 +41,11 @@ SymbolFilter.prototype.processString = function(svgContent, filePath) {
     stripPath: this.options.stripPath,
     prefix: this.options.prefix
   });
-  let viewBox = $svg.attr('viewBox');
-  let symbolContent = `<symbol id="${symbolId}" viewBox="${viewBox}"></symbol>`;
+  let symbolAttrs = {
+    id: symbolId,
+    viewBox: $svg.attr('viewBox')
+  };
+  let symbolContent = `<symbol ${formatAttrs(symbolAttrs)}></symbol>`;
   let $symbolWrapper = cheerio.load(symbolContent, { xmlMode: true });
   let $symbol = $symbolWrapper('symbol');
 
