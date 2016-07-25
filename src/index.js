@@ -9,6 +9,7 @@ module.exports = function(inputNode, options = {}) {
   }
 
   let config = _.defaults(options, {
+    idGen: (path, { prefix }) => `${prefix}${path}`.replace(/[\s]/g, '-'),
     stripPath: true,
     prefix: '',
     persist: true,

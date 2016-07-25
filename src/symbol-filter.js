@@ -10,15 +10,8 @@ function stripExtension(filePath) {
   return filePath.replace(/\.[^/.]+$/, '');
 }
 
-function defaultIdGen(filePath, options = {}) {
-  let assetId = (options.stripPath ? path.basename(filePath) : filePath)
-    .replace(/[\s]/g, '-');
-  return `${options.prefix}${assetId}`;
-}
-
 function SymbolFilter(inputNode, options = {}) {
   this.options = _.defaults(options, {
-    idGen: defaultIdGen,
     persist: true
   });
 
@@ -37,10 +30,10 @@ SymbolFilter.prototype.baseDir = function() {
 SymbolFilter.prototype.processString = function(svgContent, filePath) {
   let $svgWrapper = cheerio.load(svgContent, { xmlMode: true });
   let $svg = $svgWrapper('svg');
-  let symbolId = this.options.idGen(stripExtension(filePath), {
-    stripPath: this.options.stripPath,
-    prefix: this.options.prefix
-  });
+
+  let { idGen, stripPath, prefix } = this.options;
+  let idGenPath = stripPath ? path.basename(filePath) : filePath;
+  let symbolId = idGen(stripExtension(idGenPath), { prefix });
   let symbolAttrs = {
     id: symbolId,
     viewBox: $svg.attr('viewBox')
