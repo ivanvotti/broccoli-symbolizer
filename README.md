@@ -74,6 +74,20 @@ will result in:
 [...]
 ```
 
+### stripPath
+
+Type: `Boolean`  
+Default: `true`
+
+Remove filepaths from symbol IDs.
+
+### idGen
+
+Type: `Function`  
+Default: ``(path, { prefix }) => `${prefix}${path}`.replace(/[\s]/g, '-')``
+
+This option accepts a function which takes a relative SVG filepath and a symbol ID prefix. It returns a string which will be used as a symbol ID.
+
 ### persist
 
 Type: `Boolean`  
