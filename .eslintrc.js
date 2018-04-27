@@ -1,29 +1,40 @@
 module.exports = {
-  extends: 'airbnb-base',
+  plugins: [
+    'node'
+  ],
+
+  extends: [
+    'airbnb-base',
+    'plugin:node/recommended'
+  ],
+
+  env: {
+    browser: false,
+    node: true
+  },
 
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'module'
+    sourceType: 'script',
+    ecmaVersion: 2015
   },
 
   rules: {
-    'prefer-const': 0,
-    'comma-dangle': 0,
-    'prefer-arrow-callback': 0,
-    'func-names': 0,
-    'prefer-rest-params': 0,
-    'array-callback-return': 0,
-    'import/no-unresolved': 0,
-    'no-underscore-dangle': 0,
+    'comma-dangle': 'off',
+    'class-methods-use-this': 'off',
+    'no-param-reassign': 'off',
+    'prefer-const': 'off',
+    'prefer-destructuring': 'off',
+    'arrow-parens': ['error', 'always'],
+    'node/no-unpublished-require': 'off',
 
-    'space-before-function-paren': [2, {
-      'anonymous': 'never',
-      'named': 'never'
+    'no-irregular-whitespace': ['error', {
+      'skipStrings': true,
+      'skipComments': true
     }],
 
-    'generator-star-spacing': [2, {
-      'before': false,
-      'after': true
+    'space-before-function-paren': ['error', {
+      'anonymous': 'never',
+      'named': 'never'
     }]
   }
 };

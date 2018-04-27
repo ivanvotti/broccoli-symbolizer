@@ -1,6 +1,7 @@
 # broccoli-symbolizer
 
 [![Build Status](https://travis-ci.org/ivanvotti/broccoli-symbolizer.svg?branch=master)](https://travis-ci.org/ivanvotti/broccoli-symbolizer)
+[![Greenkeeper badge](https://badges.greenkeeper.io/ivanvotti/broccoli-symbolizer.svg)](https://greenkeeper.io/)
 
 Broccoli plugin to combine SVG files into one as symbol elements.
 

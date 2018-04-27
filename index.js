@@ -1,15 +1,19 @@
+'use strict';
+
 const _ = require('lodash');
 const Concat = require('broccoli-concat');
 const SymbolFilter = require('./symbol-filter');
 const formatAttrs = require('./format-attrs');
 
-module.exports = function(inputNode, options = {}) {
+module.exports = function BroccoliSymbolizer(inputNode, options) {
+  options = options || {};
+
   if (!options.outputFile) {
     throw new Error('outputFile is required');
   }
 
   let config = _.defaults(options, {
-    idGen: (path, { prefix }) => `${prefix}${path}`.replace(/[\s]/g, '-'),
+    idGen: (path, opts) => `${opts.prefix}${path}`.replace(/[\s]/g, '-'),
     stripPath: true,
     prefix: '',
     persist: true,

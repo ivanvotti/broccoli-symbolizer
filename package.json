@@ -3,14 +3,12 @@
   "version": "0.5.0",
   "description": "Combine SVG files into one as symbols",
   "scripts": {
-    "prebuild": "rimraf lib",
-    "build": "babel src --out-dir lib",
-    "prewatch": "rimraf lib",
-    "watch": "babel src --out-dir lib --watch",
-    "prepublish": "npm run build && npm run test",
-    "test": "mocha test/ --timeout 8000"
+    "prepublishOnly": "npm test",
+    "lint": "eslint ./*.js tests",
+    "nodetest": "mocha tests --timeout 8000",
+    "test": "npm run lint && npm run nodetest"
   },
-  "main": "lib/index.js",
+  "main": "index.js",
   "author": "Ivan Votti <ivanvotti@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/ivanvotti/broccoli-symbolizer",
@@ -31,24 +29,21 @@
     "broccoli-persistent-filter": "^1.2.0",
     "cheerio": "^0.22.0",
     "json-stable-stringify": "^1.0.1",
-    "lodash": "^4.13.1"
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-preset-es2015": "^6.9.0",
     "broccoli": "^1.1.4",
     "broccoli-fixture": "^1.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
     "mocha": "^5.1.1",
-    "mocha-eslint": "^4.1.0",
     "rimraf": "^2.5.4"
   },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
   }
 }
