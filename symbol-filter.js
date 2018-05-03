@@ -45,10 +45,7 @@ class SymbolFilter extends PersistentFilter {
     let $svgWrapper = cheerio.load(svgContent, { xmlMode: true });
     let $svg = $svgWrapper('svg');
 
-    let idGen = this.options.idGen;
-    let stripPath = this.options.stripPath;
-    let prefix = this.options.prefix;
-
+    let { idGen, stripPath, prefix } = this.options;
     let idGenPath = stripPath ? path.basename(filePath) : filePath;
     let symbolId = idGen(stripExtension(idGenPath), { prefix });
     let symbolAttrs = {
@@ -64,7 +61,7 @@ class SymbolFilter extends PersistentFilter {
   }
 
   cacheKeyProcessString(string, relativePath) {
-    return super.cacheKeyProcessString(string + this.optionsHash, relativePath);
+    return super.cacheKeyProcessString(`${string}${this.optionsHash}`, relativePath);
   }
 
   baseDir() {
