@@ -23,7 +23,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
     'prefer-const': 'off',
-    'prefer-destructuring': 'off',
     'arrow-parens': ['error', 'always'],
     'node/no-unpublished-require': 'off',
 
