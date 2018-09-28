@@ -32,7 +32,7 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "broccoli": "^1.1.4",
+    "broccoli": "^2.0.0",
     "broccoli-fixture": "^1.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
